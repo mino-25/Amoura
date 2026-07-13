@@ -1,0 +1,194 @@
+.profile-header {
+  background: var(--color-black);
+  color: var(--color-cream);
+  padding: var(--space-5) var(--space-4);
+}
+
+.profile-header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+}
+
+.profile-header h1 {
+  color: var(--color-cream);
+  font-size: 1.8rem;
+}
+
+.profile-points {
+  background: var(--color-warm-dark);
+  color: var(--color-cream);
+  padding: var(--space-5) var(--space-4);
+}
+
+.profile-points-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.points-value {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.profile-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: rgba(250, 248, 245, 0.7);
+}
+
+.progress-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-gold);
+}
+
+.progress-hint {
+  font-size: 0.75rem;
+  color: rgba(250, 248, 245, 0.6);
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding: var(--space-5) 0 var(--space-6);
+}
+
+.profile-reservations,
+.profile-badges {
+  padding: var(--space-4);
+}
+
+.profile-content h2 {
+  font-size: 1.3rem;
+  margin-bottom: var(--space-3);
+}
+
+.profile-reservations ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.profile-reservations li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.resa-date {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.resa-meta {
+  font-size: 0.85rem;
+  color: #6b6560;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
+  font-size: 0.7rem;
+  color: #c9c5be;
+}
+
+.badge-item.unlocked {
+  color: var(--color-black);
+}
+
+.badge-symbol {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0ede8;
+  font-size: 1.2rem;
+}
+
+.badge-item.unlocked .badge-symbol {
+  background: var(--color-gold);
+  color: var(--color-black);
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+}
+
+.stat-value {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+}
+
+.profile-loading {
+  padding: var(--space-6) 0;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .profile-points-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-progress {
+    flex: 1;
+    max-width: 480px;
+  }
+
+  .profile-content {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}

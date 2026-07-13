@@ -1,0 +1,135 @@
+.hero {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-5) var(--space-4);
+  background: radial-gradient(120% 100% at 50% 20%, #3a2314 0%, var(--color-warm-dark) 55%, var(--color-black) 100%);
+  color: var(--color-cream);
+  gap: var(--space-3);
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  color: var(--color-cream);
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: rgba(250, 248, 245, 0.8);
+  font-size: 1.2rem;
+  margin-bottom: var(--space-3);
+}
+
+.hero-scroll {
+  margin-top: var(--space-5);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(250, 248, 245, 0.5);
+}
+
+.section {
+  padding: var(--space-6) 0;
+}
+
+.intro {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.intro h2 {
+  font-size: 2.4rem;
+}
+
+.intro-text {
+  max-width: 640px;
+  color: #4a453f;
+}
+
+.intro-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 760px;
+}
+
+.intro-photo {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #3a2314, #1a1410);
+  color: rgba(250, 248, 245, 0.5);
+  font-family: var(--font-serif);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-photo-alt {
+  background: linear-gradient(135deg, #1f2a1c, #0a0a0a);
+}
+
+.reservation-banner {
+  background: var(--color-gold);
+  color: var(--color-black);
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.reservation-banner h2 {
+  font-size: 2.2rem;
+}
+
+.chef-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--color-black);
+  color: var(--color-cream);
+}
+
+.chef-photo {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #3a2314, #0a0a0a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(250, 248, 245, 0.4);
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.chef-content {
+  padding: var(--space-5) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+.chef-content h2 {
+  color: var(--color-cream);
+  font-size: 2rem;
+}
+
+.chef-content p:last-child {
+  color: rgba(250, 248, 245, 0.75);
+  max-width: 520px;
+}
+
+@media (min-width: 900px) {
+  .chef-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}

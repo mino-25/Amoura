@@ -1,0 +1,76 @@
+.about-intro {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.about-photo {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #3a2314, #1a1410);
+  color: rgba(250, 248, 245, 0.4);
+  font-family: var(--font-serif);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-text {
+  padding: var(--space-5) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.about-text h2 {
+  font-size: 2rem;
+}
+
+.about-text p {
+  color: #4a453f;
+}
+
+.about-values {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+}
+
+.value-card {
+  text-align: center;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.value-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-gold);
+  border-radius: 50%;
+  color: var(--color-gold);
+  margin-bottom: var(--space-2);
+}
+
+.value-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: var(--space-1);
+}
+
+.value-card p {
+  color: #6b6560;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 900px) {
+  .about-intro {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-values {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
