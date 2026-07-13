@@ -1,0 +1,74 @@
+services:
+  database:
+    image: mariadb:10.11
+    container_name: amoura_mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: amoura
+      MARIADB_USER: amoura
+      MARIADB_PASSWORD: ${DB_PASSWORD:-!ChangeMe!}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-!ChangeMeRoot!}
+    ports:
+      - "3306:3306"
+    volumes:
+      - amoura_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    container_name: amoura_backend
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      APP_ENV: ${APP_ENV:-dev}
+      DATABASE_URL: mysql://amoura:${DB_PASSWORD:-!ChangeMe!}@database:3306/amoura?serverVersion=10.11.2-MariaDB&charset=utf8mb4
+      CORS_ALLOW_ORIGIN: '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$$'
+      MAILER_DSN: ${MAILER_DSN:-smtp://mailer:1025}
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+      - /var/www/html/vendor
+
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    container_name: amoura_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:8000/api
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  mailer:
+    image: axllent/mailpit
+    container_name: amoura_mailer
+    restart: unless-stopped
+    ports:
+      - "8025:8025" # interface web de consultation des emails envoyés
+      - "1025:1025" # serveur SMTP de test
+
+  adminer:
+    image: adminer
+    container_name: amoura_adminer
+    restart: unless-stopped
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+
+volumes:
+  amoura_db_data:
