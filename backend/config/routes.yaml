@@ -9,3 +9,10 @@
 
 controllers:
     resource: routing.controllers
+
+# Route "vide" nécessaire pour que le RouterListener (priorité 32, exécuté avant
+# le firewall de sécurité, priorité 8) ne renvoie pas 404 avant que le listener
+# json_login n'intercepte la requête sur /api/login (voir security.yaml).
+api_login:
+    path: /api/login
+    methods: [POST]

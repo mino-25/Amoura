@@ -7,9 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AuthControllerTest extends WebTestCase
 {
-    protected function setUp(): void
+    private function cleanUpTestUser(\Symfony\Bundle\FrameworkBundle\KernelBrowser $client): void
     {
-        $client = static::createClient();
         /** @var EntityManagerInterface $em */
         $em = $client->getContainer()->get('doctrine')->getManager();
         $em->createQuery('DELETE FROM App\Entity\Utilisateur u WHERE u.email = :email')
@@ -20,6 +19,7 @@ class AuthControllerTest extends WebTestCase
     public function testRegisterCreatesUserAndReturnsToken(): void
     {
         $client = static::createClient();
+        $this->cleanUpTestUser($client);
 
         $client->request('POST', '/api/register', server: ['CONTENT_TYPE' => 'application/json'], content: json_encode([
             'nom' => 'Dupont',
@@ -38,6 +38,7 @@ class AuthControllerTest extends WebTestCase
     public function testRegisterRejectsWeakPassword(): void
     {
         $client = static::createClient();
+        $this->cleanUpTestUser($client);
 
         $client->request('POST', '/api/register', server: ['CONTENT_TYPE' => 'application/json'], content: json_encode([
             'nom' => 'Dupont',

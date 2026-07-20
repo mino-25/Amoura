@@ -16,10 +16,10 @@ class Creneau
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'time')]
+    #[ORM\Column(type: 'time_immutable')]
     private \DateTimeInterface $heureDebut;
 
-    #[ORM\Column(type: 'time')]
+    #[ORM\Column(type: 'time_immutable')]
     private \DateTimeInterface $heureFin;
 
     #[ORM\Column]
