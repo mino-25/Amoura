@@ -12,6 +12,7 @@ const STATUT_LABELS = {
 
 export default function Profile() {
   const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
   const [fidelite, setFidelite] = useState(null);
   const [reservations, setReservations] = useState([]);
   const [nbVisites, setNbVisites] = useState(0);
@@ -138,6 +139,12 @@ export default function Profile() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="container profile-logout">
+        <button type="button" className="btn btn-outline" onClick={logout}>
+          Déconnexion
+        </button>
       </section>
     </div>
   );
