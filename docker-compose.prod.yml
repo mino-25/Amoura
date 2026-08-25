@@ -1,0 +1,68 @@
+services:
+  database:
+    image: mariadb:10.11
+    container_name: amoura_mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: amoura
+      MARIADB_USER: amoura
+      MARIADB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD est requis}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD est requis}
+    volumes:
+      - amoura_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # Pas de port publié vers l'hôte : seuls les conteneurs du réseau interne
+    # amoura_net accèdent à la base (contrairement à docker-compose.yml en dev).
+
+  backend:
+    build:
+      context: ./backend
+    image: amoura-backend:${APP_VERSION:-latest}
+    container_name: amoura_backend
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      APP_ENV: prod
+      APP_SECRET: ${APP_SECRET:?APP_SECRET est requis}
+      DATABASE_URL: mysql://amoura:${DB_PASSWORD}@database:3306/amoura?serverVersion=10.11.2-MariaDB&charset=utf8mb4
+      CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN:?CORS_ALLOW_ORIGIN est requis (domaine du frontend en prod)}
+      MAILER_DSN: ${MAILER_DSN:?MAILER_DSN est requis (Mailjet/SendGrid en prod)}
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE:?JWT_PASSPHRASE est requis}
+    ports:
+      - "8000:80"
+    volumes:
+      # Les clés JWT (config/jwt/*.pem) ne sont jamais versionnées (voir chapitre V/IX) :
+      # elles sont générées une fois sur le serveur puis persistées dans ce volume,
+      # pour survivre à chaque redéploiement sans invalider les jetons déjà émis.
+      - amoura_jwt_keys:/var/www/html/config/jwt
+    # Aucun bind-mount du code source : contrairement à docker-compose.yml (dev),
+    # le code exécuté est celui figé dans l'image au moment du build, jamais modifiable à chaud.
+
+  frontend:
+    build:
+      context: ./frontend
+      target: production
+      args:
+        # Variable Vite : inlinée dans le bundle au build, pas lue au runtime du
+        # conteneur (voir commentaire dans frontend/Dockerfile). Doit pointer vers
+        # l'URL publique du backend telle qu'accessible depuis le navigateur du client.
+        VITE_API_URL: ${VITE_API_URL:?VITE_API_URL est requis (URL publique de l'API)}
+    image: amoura-frontend:${APP_VERSION:-latest}
+    container_name: amoura_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    # target: production cible le stage Nginx du Dockerfile (fichiers statiques buildés),
+    # jamais le stage "dev" (serveur Vite) utilisé en développement.
+
+volumes:
+  amoura_db_data:
+  amoura_jwt_keys:
