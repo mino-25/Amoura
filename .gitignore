@@ -1,8 +1,9 @@
-# Environment
-.env
-.env.local
-.env.prod
-.env.*.local
+# Environment (racine uniquement : backend/.env est committe par convention Symfony,
+# voir backend/.gitignore pour /.env.local qui contient les vrais secrets locaux)
+/.env
+/.env.local
+/.env.prod
+/.env.*.local
 
 # OS
 .DS_Store
