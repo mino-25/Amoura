@@ -69,13 +69,19 @@ jobs:
         run: php bin/console doctrine:migrations:migrate --no-interaction
         env:
           APP_ENV: test
-          DATABASE_URL: mysql://amoura:amoura_test@127.0.0.1:3306/amoura_test?serverVersion=10.11.2-MariaDB&charset=utf8mb4
+          # Nom de base "amoura" (sans suffixe) : config/packages/doctrine.yaml ajoute
+          # automatiquement "_test" en environnement test, ce qui cible la base
+          # "amoura_test" réellement créée par le service mariadb ci-dessus.
+          DATABASE_URL: mysql://amoura:amoura_test@127.0.0.1:3306/amoura?serverVersion=10.11.2-MariaDB&charset=utf8mb4
 
       - name: Tests unitaires et fonctionnels (PHPUnit)
         run: vendor/bin/phpunit
         env:
           APP_ENV: test
-          DATABASE_URL: mysql://amoura:amoura_test@127.0.0.1:3306/amoura_test?serverVersion=10.11.2-MariaDB&charset=utf8mb4
+          # Nom de base "amoura" (sans suffixe) : config/packages/doctrine.yaml ajoute
+          # automatiquement "_test" en environnement test, ce qui cible la base
+          # "amoura_test" réellement créée par le service mariadb ci-dessus.
+          DATABASE_URL: mysql://amoura:amoura_test@127.0.0.1:3306/amoura?serverVersion=10.11.2-MariaDB&charset=utf8mb4
 
   frontend:
     name: Frontend (React)
