@@ -1,3 +1,4 @@
+import salleAmoura from '../assets/young-waitress-setting-table.jpg';
 import './About.css';
 
 const VALUES = [
@@ -26,9 +27,7 @@ export default function About() {
       </header>
 
       <section className="about-intro">
-        <div className="about-photo" aria-hidden="true">
-          La salle Amoura
-        </div>
+        <img className="about-photo" src={salleAmoura} alt="Mise en place d'une table au restaurant Amoura" />
         <div className="about-text">
           <p className="eyebrow">Depuis 2022</p>
           <h2>Un lieu pensé pour l'excellence culinaire</h2>

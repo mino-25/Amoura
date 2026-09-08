@@ -1,10 +1,27 @@
 import { Link } from 'react-router-dom';
+import grillPoster from '../assets/grill-poster.jpg';
+import grillVideo from '../assets/grill.mp4';
+import chefCookingFire from '../assets/chef-cooking-fire.jpg';
+import chickenSalad from '../assets/chicken-salad.jpg';
+import chefCookingSalad from '../assets/chef-cooking-salad.jpg';
 import './Home.css';
 
 export default function Home() {
   return (
     <div className="home">
       <section className="hero">
+        <video
+          className="hero-video"
+          poster={grillPoster}
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+        >
+          <source src={grillVideo} type="video/mp4" />
+        </video>
+        <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-content">
           <p className="eyebrow">Restaurant méditerranéen · Paris 6e</p>
           <h1>Amoura</h1>
@@ -28,8 +45,8 @@ export default function Home() {
         </p>
 
         <div className="intro-gallery">
-          <div className="intro-photo">Chef en cuisine</div>
-          <div className="intro-photo intro-photo-alt">Plat signature</div>
+          <img className="intro-photo" src={chefCookingFire} alt="Le chef d'Amoura en cuisine devant les flammes" />
+          <img className="intro-photo intro-photo-alt" src={chickenSalad} alt="Plat signature du restaurant Amoura" />
         </div>
 
         <Link to="/menu" className="btn btn-primary">
@@ -46,7 +63,7 @@ export default function Home() {
       </section>
 
       <section className="chef-section">
-        <div className="chef-photo">Le Chef</div>
+        <img className="chef-photo" src={chefCookingSalad} alt="Chef Karim Mansouri en cuisine" />
         <div className="chef-content">
           <h2>Chef Karim Mansouri</h2>
           <p className="eyebrow">Chef exécutif &amp; fondateur</p>

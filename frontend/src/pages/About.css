@@ -5,13 +5,10 @@
 
 .about-photo {
   aspect-ratio: 4 / 3;
-  background: linear-gradient(135deg, #3a2314, #1a1410);
-  color: rgba(250, 248, 245, 0.4);
-  font-family: var(--font-serif);
-  font-style: italic;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius);
 }
 
 .about-text {
