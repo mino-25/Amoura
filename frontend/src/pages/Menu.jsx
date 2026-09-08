@@ -30,7 +30,7 @@ export default function Menu() {
         <div className="menu-grid">
           {MENU[active].map((plat) => (
             <article key={plat.nom} className="menu-item">
-              <div className="menu-item-photo" aria-hidden="true" />
+              <img className="menu-item-photo" src={plat.photo} alt={plat.nom} />
               <div className="menu-item-body">
                 <h3>{plat.nom}</h3>
                 <p>{plat.description}</p>

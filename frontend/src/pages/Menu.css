@@ -46,7 +46,8 @@
   width: 96px;
   height: 72px;
   border-radius: var(--radius);
-  background: linear-gradient(135deg, #3a2314, #1a1410);
+  object-fit: cover;
+  display: block;
 }
 
 .menu-item-body h3 {
